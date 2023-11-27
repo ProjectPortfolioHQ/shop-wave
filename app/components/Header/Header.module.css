@@ -1,0 +1,15 @@
+.header {
+  @apply flex justify-between py-4;
+}
+
+.brandName {
+  @apply text-2xl font-bold uppercase;
+}
+
+.navLink {
+  @apply flex gap-4;
+}
+
+.navLinkItem {
+  @apply hover:underline hover:underline-offset-8;
+}
