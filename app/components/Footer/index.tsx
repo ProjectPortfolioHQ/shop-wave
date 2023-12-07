@@ -36,9 +36,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <span className="text-white">
+      <p className="text-white text-center">
         &#9400; Copyright Shop wave {format(new Date(), "yyyy")}
-      </span>
+      </p>
     </footer>
   );
 }
