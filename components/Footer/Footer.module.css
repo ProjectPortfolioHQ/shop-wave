@@ -1,0 +1,19 @@
+.footer {
+  @apply bg-primary text-center py-8 px-4;
+}
+
+.section {
+  @apply flex flex-col gap-2 justify-start text-start mb-4 md:mb-0;
+}
+
+.sections {
+  @apply flex flex-col md:flex-row justify-between mb-14 container;
+}
+
+.title {
+  @apply font-semibold text-secondary uppercase;
+}
+
+.content {
+  @apply capitalize cursor-pointer;
+}
