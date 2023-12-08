@@ -7,9 +7,13 @@
 }
 
 .navLink {
-  @apply flex gap-4;
+  @apply flex gap-8;
 }
 
 .navLinkItem {
-  @apply hover:underline hover:underline-offset-8;
+  @apply hover:bg-right-bottom hover:bg-[length:100%_2px] inline-block pb-[2px] bg-left-bottom bg-[length:0%_2px] bg-no-repeat;
+  transition:
+    background-size 0.3s,
+    background-position 0s 0.3s;
+  background-image: linear-gradient(#fff 0 0);
 }

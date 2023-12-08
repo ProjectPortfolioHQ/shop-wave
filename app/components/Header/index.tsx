@@ -8,10 +8,7 @@ export default function Header() {
         Shop Wave
       </Link>
       <nav className={styles.navLink}>
-        <Link href="/products" className={styles.navLinkItem}>
-          Products
-        </Link>
-        <Link href="/blogs" className={styles.navLinkItem}>
+        <Link href="/posts" className={styles.navLinkItem}>
           Blogs
         </Link>
         <Link href="/about-us" className={styles.navLinkItem}>
