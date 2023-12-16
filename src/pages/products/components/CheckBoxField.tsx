@@ -1,14 +1,33 @@
 import { Checkbox } from "../../../components/ui/checkbox";
 
-const CheckBoxField = () => {
+export type CheckedState = boolean | "indeterminate";
+
+interface ICheckboxFieldProps {
+  id: string;
+  label: string;
+  checked: boolean;
+  onCheckedChange: (checked: CheckedState) => void;
+}
+
+const CheckBoxField: React.FC<ICheckboxFieldProps> = ({
+  id,
+  label,
+  checked,
+  onCheckedChange,
+}) => {
   return (
-    <div className="flex items-center space-x-2">
-      <Checkbox id="terms" />
+    <div key={id} className="flex items-center space-x-2 my-2">
+      <Checkbox
+        key={id}
+        id={label}
+        checked={checked}
+        onCheckedChange={(checked) => onCheckedChange(checked)}
+      />
       <label
-        htmlFor="terms"
-        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        htmlFor={id}
+        className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >
-        Accept terms and conditions
+        {label}
       </label>
     </div>
   );
