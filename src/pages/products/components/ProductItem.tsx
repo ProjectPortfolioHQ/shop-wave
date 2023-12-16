@@ -12,7 +12,7 @@ const ProductItem: React.FC<IProductItem> = ({ image, title, price }) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-4 gap-4">
       <Image
-        src={`/${image}`}
+        src={image ?? "/posts/phone.png"}
         alt={title}
         width="200"
         height="214"
