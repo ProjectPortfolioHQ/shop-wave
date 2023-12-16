@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./Header.module.css";
 import { Newsreader } from "next/font/google";
-import { Button } from "@/components/ui/button";
+import { Button } from "../ui/button";
 
 const newsreader = Newsreader({ subsets: ["latin"] });
 
@@ -16,7 +16,7 @@ export default function Header() {
           Shop Wave
         </Link>
         <nav className={styles.navLink}>
-          <Link href="/posts" className={styles.navLinkItem}>
+          <Link href="/products" className={styles.navLinkItem}>
             Product
           </Link>
           <Link href="/posts" className={styles.navLinkItem}>
