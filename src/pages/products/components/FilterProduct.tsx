@@ -1,26 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckboxGroupField, { IItemValue } from "./CheckboxGroupField";
 import Divider from "./Divider";
-import PriceRangeField from "./PriceRangeField";
+import PriceRangeField, { ValueRange } from "./PriceRangeField";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const serviceList: IItem[] = [
   {
-    id: "discount",
+    id: "isPromotion",
     label: "Discount",
   },
   {
-    id: "free",
+    id: "isFreeShip",
     label: "Free Shipping",
   },
 ] as const;
 
 const sortList: IItem[] = [
   {
-    id: "high-price",
+    id: "salePrice:DESC",
     label: "High price",
   },
   {
-    id: "low",
+    id: "salePrice:ASC",
     label: "Low price",
   },
 ] as const;
@@ -31,21 +32,57 @@ export interface IItem {
 }
 
 const FilterProduct = () => {
-  const [valueService, setValueService] = useState<string[]>([]);
+  const searchParams = useSearchParams()!;
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const newParams = new URLSearchParams(searchParams);
+  const valueSort = searchParams.get("_sort") ?? "";
+  const isPromotion =
+    searchParams.get("isPromotion") === "true" ? ["isPromotion"] : [];
+  const isFreeShip =
+    searchParams.get("isFreeShip") === "true" ? ["isFreeShip"] : [];
+  const valueService = [...isPromotion, ...isFreeShip];
+  const fromPrice = searchParams.get("salePrice_gte") ?? 0;
+  const toPrice = searchParams.get("salePrice_lte") ?? 0;
+
+  const handelPushSearch = () => {
+    newParams.set("_start", "10");
+    router.push(`${pathname}?${newParams.toString()}`);
+  };
 
   const handleChangeValueService = (item: IItemValue) => {
-    if (item.checked) {
-      setValueService([...valueService, item.id]);
-      return;
+    if (valueService.includes(item.id)) {
+      newParams.delete(item.id);
+    } else {
+      newParams.append(item.id, "true");
+    }
+    handelPushSearch();
+  };
+
+  const handleChangeValueSort = (item: IItemValue) => {
+    if (item.id !== searchParams.get("_sort")) {
+      newParams.set("_sort", item.id);
+    } else {
+      newParams.delete("_sort");
     }
 
-    const filtered = valueService.filter((v) => v !== item.id);
-    setValueService(filtered);
+    handelPushSearch();
+  };
+
+  const handleRange = (value: any) => {
+    newParams.set("salePrice_gte", value.from);
+    newParams.set("salePrice_lte", value.to);
+
+    handelPushSearch();
   };
 
   return (
     <div className="w-full p-2 bg-white border-solid border border-gray-200 rounded-md">
-      <PriceRangeField />
+      <PriceRangeField
+        value={{ from: Number(fromPrice), to: Number(toPrice) }}
+        onChange={handleRange}
+      />
       <Divider />
 
       <CheckboxGroupField
@@ -59,8 +96,8 @@ const FilterProduct = () => {
       <CheckboxGroupField
         title="Sort"
         items={sortList}
-        onCheckedChange={handleChangeValueService}
-        value={valueService}
+        onCheckedChange={handleChangeValueSort}
+        value={[valueSort]}
       />
     </div>
   );
