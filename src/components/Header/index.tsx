@@ -25,7 +25,7 @@ export default function Header() {
           <Link href="/posts" className={styles.navLinkItem}>
             Blog
           </Link>
-          <Link href="/about-us" className={styles.navLinkItem}>
+          <Link href="/contributors" className={styles.navLinkItem}>
             About Us
           </Link>
           <Button asChild variant="secondary">
